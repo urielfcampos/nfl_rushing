@@ -18,6 +18,7 @@ defmodule NflRushingWeb.Router do
     pipe_through :browser
 
     live "/", Statistics.RushingLive, :index
+    get "/download", Statistics.DownloadController, :index
   end
 
   # Other scopes may use custom stacks.

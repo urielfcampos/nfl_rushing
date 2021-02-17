@@ -1,19 +1,57 @@
 <form phx-change="filter">
-  <input type="text" name="filter" value="<%= @query %>" placeholder="Player name search" phx-debounce="1000"/>
+  <input type="text" name="filter" value="<%= @query %>" placeholder="Player name search" phx-debounce="1000" autocomplete="off" />
 </form>
+<%= link to: Routes.download_path(NflRushingWeb.Endpoint, :index, filter: @query, sort_order: @sort_order, sort_by: @sort_by), class: "button is-info" do %>
+  <p>
+    <i class="fas fa-file-csv"></i>
+  </p>
+<% end %>
 <table class="table">
-  <thead>
+  <thead class="has-text-right">
     <tr>
       <th><%= gettext("Player") %></th>
       <th><%= gettext("Team") %></th>
       <th><%= gettext("Pos") %></th>
       <th><%= gettext("Att") %></th>
       <th><%= gettext("Att/G") %></th>
-      <th><%= live_patch "Yds", to: Routes.rushing_path(@socket,:index, %{sort_by: "Yds", filter: @query}) %></th>
+      <th>
+        <%= live_patch to: Routes.rushing_path(@socket, :index, %{sort_by: "Yds", filter: @query,  sort_order: @sort_order}) do %>
+          <p>
+            <span><%= gettext("Yds") %></span>
+            <%= if @sort_order == "asc" do %>
+              <i class="fas fa-angle-up"></i>
+            <% else %>
+              <i class="fas fa-angle-down"></i>
+            <%end %>
+          </p>
+        <% end %>
+      </th>
       <th><%= gettext("Avg") %></th>
       <th><%= gettext("Yds/G") %></th>
-      <th><%= live_patch "TD", to: Routes.rushing_path(@socket, :index, %{sort_by: "TD", filter: @query}) %></th>
-      <th><%= live_patch "Lng", to: Routes.rushing_path(@socket, :index,%{sort_by: "Lng", filter: @query}) %></th>
+      <th>
+        <%= live_patch to: Routes.rushing_path(@socket, :index, %{sort_by: "TD", filter: @query,  sort_order: @sort_order}) do %>
+          <p>
+            <span><%= gettext("TD") %></span>
+            <%= if @sort_order == "asc" do %>
+              <i class="fas fa-angle-up"></i>
+            <% else %>
+              <i class="fas fa-angle-down"></i>
+            <%end %>
+          </p>
+        <% end %>
+      </th>
+      <th>
+        <%= live_patch to: Routes.rushing_path(@socket, :index, %{sort_by: "Lng", filter: @query, sort_order: @sort_order}) do %>
+          <p>
+            <span><%= gettext("Lng") %></span>
+            <%= if @sort_order == "asc" do %>
+              <i class="fas fa-angle-up"></i>
+            <% else %>
+              <i class="fas fa-angle-down"></i>
+            <%end %>
+          </p>
+        <% end %>
+      </th>
       <th><%= gettext("1st") %></th>
       <th><%= gettext("1st%") %></th>
       <th><%= gettext("20+") %></th>

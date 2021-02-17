@@ -3,7 +3,25 @@ defmodule NflRushing.Repo.Rushing do
   alias NflRushing.Statistics.Rushing
 
   def list do
-    from(s in Rushing, select: s)
+    from(s in Rushing,
+      select: %{
+        "1st": s."1st",
+        "1st%": s."1st%",
+        "20+": s."20+",
+        "40+": s."40+",
+        Att: s."Att",
+        "Att/G": s."Att/G",
+        FUM: s."FUM",
+        Lng: s."Lng",
+        Player: s."Player",
+        Pos: s."Pos",
+        TD: s."TD",
+        Team: s."Team",
+        Yds: s."Yds",
+        "Yds/G": s."Yds/G",
+        Avg: s."Avg"
+      }
+    )
   end
 
   def filter_by_name(query, ""), do: query
