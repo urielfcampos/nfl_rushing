@@ -9,3 +9,12 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+{:ok, rushing_stats} = NflRushing.JsonLoader.load_json("rushing.json")
+
+IO.inspect(Enum.count(rushing_stats))
+
+Enum.each(rushing_stats, fn rushing_stat ->
+  NflRushing.Statistics.Rushing.changeset(%NflRushing.Statistics.Rushing{}, rushing_stat)
+  |> NflRushing.Repo.insert!()
+end)

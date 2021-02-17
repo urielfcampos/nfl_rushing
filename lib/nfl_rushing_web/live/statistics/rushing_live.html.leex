@@ -1,0 +1,66 @@
+<form phx-change="filter">
+  <input type="text" name="filter" value="<%= @query %>" placeholder="Player name search" phx-debounce="1000"/>
+</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= gettext("Player") %></th>
+      <th><%= gettext("Team") %></th>
+      <th><%= gettext("Pos") %></th>
+      <th><%= gettext("Att") %></th>
+      <th><%= gettext("Att/G") %></th>
+      <th><%= live_patch "Yds", to: Routes.rushing_path(@socket,:index, %{sort_by: "Yds", filter: @query}) %></th>
+      <th><%= gettext("Avg") %></th>
+      <th><%= gettext("Yds/G") %></th>
+      <th><%= live_patch "TD", to: Routes.rushing_path(@socket, :index, %{sort_by: "TD", filter: @query}) %></th>
+      <th><%= live_patch "Lng", to: Routes.rushing_path(@socket, :index,%{sort_by: "Lng", filter: @query}) %></th>
+      <th><%= gettext("1st") %></th>
+      <th><%= gettext("1st%") %></th>
+      <th><%= gettext("20+") %></th>
+      <th><%= gettext("40+") %></th>
+      <th><%= gettext("FUM") %></th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th><%= gettext("Player") %></th>
+      <th><%= gettext("Team") %></th>
+      <th><%= gettext("Pos") %></th>
+      <th><%= gettext("Att/G") %></th>
+      <th><%= gettext("Att") %></th>
+      <th><%= gettext("Yds") %></th>
+      <th><%= gettext("Avg") %></th>
+      <th><%= gettext("Yds/G") %></th>
+      <th><%= gettext("TD") %></th>
+      <th><%= gettext("Lng") %></th>
+      <th><%= gettext("1st") %></th>
+      <th><%= gettext("1st%") %></th>
+      <th><%= gettext("20+") %></th>
+      <th><%= gettext("40+") %></th>
+      <th><%= gettext("FUM") %></th>
+    </tr>
+  </tfoot>
+  <tbody>
+    <%= for stat <- @stats do %>
+      <tr>
+        <th><%= stat."Player" %></th>
+        <td>
+          <%= stat."Team" %>
+        </td>
+        <td class="has-text-right"><%= stat."Pos" %></td>
+        <td class="has-text-right"><%= stat."Att" %></td>
+        <td class="has-text-right"><%= stat."Att/G" %></td>
+        <td class="has-text-right"><%= stat."Yds" %></td>
+        <td class="has-text-right"><%= stat."Avg" %></td>
+        <td class="has-text-right"><%= stat."Yds/G" %></td>
+        <td class="has-text-right"><%= stat."TD" %></td>
+        <td class="has-text-right"><%= stat."Lng" %></td>
+        <td class="has-text-right"><%= stat."1st" %></td>
+        <td class="has-text-right"><%= stat."1st%" %></td>
+        <td class="has-text-right"><%= stat."20+" %>0</td>
+        <td class="has-text-right"><%= stat."40+" %></td>
+        <td class="has-text-right"><%= stat."FUM" %>0</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
