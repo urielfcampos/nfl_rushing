@@ -37,4 +37,13 @@ defmodule NflRushing.Repo.Rushing do
   def sort_by(query, field, :asc) do
     from(s in query, order_by: [asc: field(s, ^field)])
   end
+
+  def insert_entries_from_file(file) do
+    {:ok, rushing_stats} = NflRushing.JsonLoader.load_json(file)
+
+    Enum.each(rushing_stats, fn rushing_stat ->
+      NflRushing.Statistics.Rushing.changeset(%NflRushing.Statistics.Rushing{}, rushing_stat)
+      |> NflRushing.Repo.insert!()
+    end)
+  end
 end

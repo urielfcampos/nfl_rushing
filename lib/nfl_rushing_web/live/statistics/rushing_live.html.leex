@@ -1,11 +1,43 @@
-<form phx-change="filter">
-  <input type="text" name="filter" value="<%= @query %>" placeholder="Player name search" phx-debounce="1000" autocomplete="off" />
+<h1 class="has-text-centered title">NFL Rushing Statistics</h1>
+<form phx-change="filter" id="filter_form">
+  <input type="text" name="filter" value="<%= @query %>" placeholder="Player name search" phx-debounce="400" autocomplete="off" />
 </form>
-<%= link to: Routes.download_path(NflRushingWeb.Endpoint, :index, filter: @query, sort_order: @sort_order, sort_by: @sort_by), class: "button is-info" do %>
-  <p>
-    <i class="fas fa-file-csv"></i>
-  </p>
-<% end %>
+<div class="columns">
+  <div class="column">
+    <%= link to: Routes.download_path(NflRushingWeb.Endpoint, :index, filter: @query, sort_order: @sort_order, sort_by: @sort_by), class: "button is-info" do %>
+      <p>
+        <i class="fas fa-file-csv"></i>
+      </p>
+    <% end %>
+  </div>
+  <div class="column is-offset-8">
+    <form phx-submit="load_data" phx-change="validate" id="upload_form">
+      <div class="file has-name is-boxed is-info has-text-centered" id="file-upload">
+        <label class="file-label">
+          <%= live_file_input @uploads.data, class: "file-input" %>
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fas fa-upload"></i>
+            </span>
+            <span class="file-label">
+              <%= gettext("Choose your file") %>
+            </span>
+          </span>
+          <span class="file-name">
+            <%= if Enum.count(@uploads.data.entries) == 0 do %>
+              <p><%= gettext("No file selected") %></p>
+            <% else %>
+              <%= for entry <- @uploads.data.entries do %>
+                <p><%= entry.client_name %></p>
+              <% end %>
+            <% end %>
+          </span>
+        </label>
+      </div>
+      <button type="submit" class="button is-info is-fullwidth"><%= gettext("Upload") %></button>
+    </form>
+  </div>
+</div>
 <table class="table">
   <thead class="has-text-right">
     <tr>

@@ -54,4 +54,13 @@ We will evaluate you on your ability to solve the problem defined in the require
 If you have any questions regarding requirements, do not hesitate to email your contact at theScore for clarification.
 
 ### Installation and running this solution
-... TODO
+
+How to run this project
+   1. install elixir and erlang (Versions can be found on [`.tool-versions`](/.tool-versions) for use with [`asdf`](https://asdf-vm.com/#/))
+   2. Docker and docker-compose installed
+   3. bring up the database with docker using `docker-compose up database -d` and run the following command on the root of the project `mix ecto.setup` to create the database
+   4. rename the `.env.example` file to `.env` 
+   5. run `docker-compose up -d` to bring up the application container
+   6. open your brownser on [`localhost:4000`](http:localhost:4000) 
+
+
