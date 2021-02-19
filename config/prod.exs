@@ -10,9 +10,9 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :nfl_rushing, NflRushingWeb.Endpoint,
-  url: [host: "localhost", port: 4000],
-  cache_static_manifest: "priv/static/cache_manifest.json"
-
+  http: [port: {:system, "PORT"}],
+  url: [scheme: "https", host: "the-score-nfl-rushing.herokuapp.com", port: 443],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
 # Do not print debug messages in production
 config :logger, level: :info
 
