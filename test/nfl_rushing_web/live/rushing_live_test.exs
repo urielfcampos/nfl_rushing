@@ -50,7 +50,7 @@ defmodule NflRushingWeb.Statistics.RushingLiveTest do
 
     {:ok, view, _template} = live(conn, "/")
 
-    assert view |> element("#filter_form") |> render_change(%{filter: "Jonas"}) =~ "Jonas"
+    assert view |> element("#filter_form") |> render_change(%{filter: "Jonas"}) =~ "Jonas Banyard"
     refute view |> element("#filter_form") |> render_change(%{filter: "Jonas"}) =~ "Joe"
   end
 

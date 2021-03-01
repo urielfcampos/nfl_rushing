@@ -46,4 +46,16 @@ defmodule NflRushing.Repo.Rushing do
       |> NflRushing.Repo.insert!()
     end)
   end
+
+  def list_group_by do
+    from(s in Rushing,
+      group_by: s."Team",
+      order_by: [desc: sum(s."Yds")],
+      select: %{
+        Team: s."Team",
+        Yds: sum(s."Yds"),
+        Lng: fragment("max(replace(?, 'T', '')::integer)", s."Lng")
+      }
+    )
+  end
 end

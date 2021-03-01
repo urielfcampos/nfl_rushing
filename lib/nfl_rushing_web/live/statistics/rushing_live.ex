@@ -3,11 +3,13 @@ defmodule NflRushingWeb.Statistics.RushingLive do
   @impl true
   def mount(_params, _session, socket) do
     rushing_stats = NflRushing.Repo.Rushing.list() |> NflRushing.Repo.all()
+    grouped_team_stats = NflRushing.Repo.Rushing.list_group_by() |> NflRushing.Repo.all()
 
     {:ok,
      assign(socket,
        query: "",
        stats: rushing_stats,
+       grouped_stats: grouped_team_stats,
        sort_order: "desc",
        sort_by: "TD",
        uploaded_files: []

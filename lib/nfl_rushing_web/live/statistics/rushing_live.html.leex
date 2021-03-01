@@ -41,6 +41,35 @@
 <table class="table">
   <thead class="has-text-right">
     <tr>
+      <th><%= gettext("Team") %></th>
+      <th>
+        <%= gettext("Yds") %>
+      </th>
+      <th><%= gettext("Lng") %></th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th><%= gettext("Team") %></th>
+      <th><%= gettext("Yds") %></th>
+      <th><%= gettext("Lng") %></th>
+    </tr>
+  </tfoot>
+  <tbody>
+    <%= for stat <- @grouped_stats do %>
+      <tr>
+        <td>
+          <%= stat."Team" %>
+        </td>
+        <td class="has-text-right"><%= stat."Yds" %></td>
+        <td class="has-text-right"><%= stat."Lng" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<table class="table">
+  <thead class="has-text-right">
+    <tr>
       <th><%= gettext("Player") %></th>
       <th><%= gettext("Team") %></th>
       <th><%= gettext("Pos") %></th>

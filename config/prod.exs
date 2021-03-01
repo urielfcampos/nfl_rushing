@@ -13,6 +13,7 @@ config :nfl_rushing, NflRushingWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [scheme: "https", host: "the-score-nfl-rushing.herokuapp.com", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]]
+
 # Do not print debug messages in production
 config :logger, level: :info
 
